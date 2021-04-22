@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/arifsetyawan/gha-test#readme",
   "dependencies": {
+    "keysto": "^1.1.1",
     "lodash": "^4.17.21"
   }
 }
