@@ -38,9 +38,8 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       
-      - name: set job status success
+      - id: status_check
         if: always()
-        id: status_check
         run: echo "::set-output name=status::failure"
     
   check-output:
@@ -50,4 +49,4 @@ jobs:
         - name: check output from build
           shell: bash
           run: |
-            echo ${{ needs.build.outputs.ghastatus }}
+            echo ${{needs.build.outputs.ghastatus}}
