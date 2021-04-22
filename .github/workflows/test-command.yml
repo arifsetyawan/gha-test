@@ -1,0 +1,26 @@
+name: Test Dispatch
+
+on:
+  repository_dispatch:
+    types: [test]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: LouisBrunner/checks-action@v1.1.1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: build-and-test-dispatch
+        status: in_progress
+    - name: "Running Test"
+      run: echo "test OK"
+    - uses: LouisBrunner/checks-action@v1.1.1
+      if: always()
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: build-and-test-dispatch
+        conclusion: ${{ job.status }}
+        status: completed
+        output: |
+          {"summary": "Test OK"}

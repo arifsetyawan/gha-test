@@ -1,0 +1,39 @@
+name: slash-command-dispatch
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  slash-command-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get Github Context
+        run : |
+          echo ${{ github }}
+
+      - name: Get Short SHA
+        run : |
+          echo "SHORT_SHA="$(echo ${{ github.event.comment.body}} | awk '{print $NF}') >> $GITHUB_ENV
+
+      - name: Get Long SHA
+        run : |
+          echo "LONG_SHA="$( git rev-parse ${{ env.SHORT_SHA }} ) >> $GITHUB_ENV
+
+      - name: Check SHA
+        run : |
+          echo ${{ env.SHORT_SHA }}
+          echo ${{ env.LONG_SHA }}
+
+      - name: Slash Command Dispatch
+        uses: peter-evans/slash-command-dispatch@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          commands: |
+            test
+          static-args: |
+            ${{ env.LONG_SHA }}
+
+          issue-type: pull-request
