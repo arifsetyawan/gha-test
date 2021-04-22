@@ -19,14 +19,15 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      ghastatus: ${{ steps.step1.outputs.test }}
-      lobby: ${{ steps.step2.outputs.test }}
+      ghastatus: ${{ steps.step1.outputs.status }}
+      lobby: ${{ steps.step2.status_check.status }}
     steps:
     - id: step1
-      run: echo "::set-output name=test::hello"
-    - id: step2
+      run: echo "::set-output name=status::hello"
+    - id: status_check
       if: always()
-      run: echo "::set-output name=test::world"
+      run: |
+        echo "::set-output name=status::world"
   job2:
     runs-on: ubuntu-latest
     needs: job1
