@@ -2,7 +2,7 @@ name: Test Dispatch
 
 on:
   repository_dispatch:
-    types: [test]
+    types: [test-command]
 
 jobs:
   build-and-test:
