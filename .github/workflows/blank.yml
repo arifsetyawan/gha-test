@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     
     outputs:
-      gha_status: ${{ steps.status_check.status }}
+      ghastatus: ${{ steps.status_check.status }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -55,5 +55,6 @@ jobs:
       needs: build
       steps:
         - name: check output from build
+          shell: bash
           run: |
-            echo ${{ needs.build.outputs.gha_status }}
+            echo ${{ needs.build.outputs.ghastatus }}
