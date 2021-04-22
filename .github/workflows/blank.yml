@@ -41,14 +41,7 @@ jobs:
       - name: set job status success
         if: always()
         id: status_check
-        shell: bash
-        run: |
-          if [[ ${{ job.status }} != "success" ]]
-          then
-            echo "::set-output name=status::failure"
-          else
-            echo "::set-output name=status::success"
-          fi
+        run: echo "::set-output name=status::failure"
     
   check-output:
       runs-on: ubuntu-latest
