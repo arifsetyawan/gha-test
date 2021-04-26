@@ -1,4 +1,4 @@
-name: slash-command-dispatch
+name: to-something-else
 on:
   issue_comment:
     types: [created]
